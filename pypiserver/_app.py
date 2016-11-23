@@ -8,7 +8,7 @@ import xml.dom.minidom
 
 from . import __version__
 from . import core
-from .bottle import static_file, redirect, request, response, HTTPError, Bottle, template
+from .bottle import static_file, redirect, response, HTTPError, Bottle, template, LocalRequest
 
 try:
     import xmlrpc.client as xmlrpclib # py3
@@ -32,6 +32,12 @@ config = None
 
 app = Bottle()
 
+
+class PyPiRequest(LocalRequest):
+    MEMFILE_MAX = os.environ.get('PYPI_MAX_REQUEST_SIZE', 102400)
+
+
+request = PyPiRequest()
 
 class auth(object):
     "decorator to apply authentication if specified for the decorated method & action"

@@ -12,6 +12,11 @@ RUN rm -rf /pypiserver
 RUN mkdir -p /data/packages
 WORKDIR /data
 
+# Set the entrypoint
 ENTRYPOINT ["pypi-server"]
+
+# Set the default command
 CMD ["-p", "80", "packages"]
+
+# Expose the port
 EXPOSE 80
